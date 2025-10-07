@@ -15,5 +15,23 @@ export default function QueryProcessor(query: string): string {
     return "ainiuw";
   }
 
+  const additionMatch = query.match(/what is (\d+) plus (\d+)/i);
+  if (additionMatch) {
+    const num1 = parseInt(additionMatch[1], 10);
+    const num2 = parseInt(additionMatch[2], 10);
+    return (num1 + num2).toString();
+  }
+
+  const largestNumberMatch = query.match(
+    /Which of the following numbers is the largest: ([\d, ]+)/i
+  );
+  if (largestNumberMatch) {
+    const numbers = largestNumberMatch[1]
+      .split(",")
+      .map((s) => parseInt(s.trim(), 10));
+    const max = Math.max(...numbers);
+    return max.toString();
+  }
+
   return "";
 }
